@@ -10,8 +10,15 @@ class ConvertTestCasesToJsonFe:
         """
         json_cases = []
         epic = "https://www.notion.so/simetrik/URE138-Relate-sources-to-repositories-151ab53b41a180c5be67fd250a0280c8"
+        # Agregamos los pasos comunes al inicio de cada caso de prueba
+        pasos_comunes = [
+            "Given I login into the Simetrik App with a valid user",
+            "And I open a workspace of some associated account"
+        ]
 
         for case in ConvertTestCasesToJsonFe.test_cases:
+            case["steps"][0] = case["steps"][0].replace("Given", "And")
+            case["steps"] = pasos_comunes + case["steps"]
             json_case = {
                 "title": f"FE - {case['title']}",
                 "template_id": 4,
